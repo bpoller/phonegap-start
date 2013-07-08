@@ -50,7 +50,7 @@ var app = {
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp                    + '<br />';
-    }
+    },
 
     onPositionError: function(error){
         alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
