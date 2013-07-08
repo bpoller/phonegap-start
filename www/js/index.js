@@ -33,17 +33,26 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        navigator.geolocation.getCurrentPosition(onPosition, onPositonError);
     },
+
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    onPosition: function(position) {
+        
         var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        var locDisplay = parentElement.querySelector('.locDisplay');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        locDisplay.innerHTML = 'Latitude: '        + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+    }
 
-        console.log('Received Event: ' + id);
+    onPositionError: function(error){
+        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
     }
 };
